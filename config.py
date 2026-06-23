@@ -1,3 +1,9 @@
+"""
+config.py — single source of truth for the whole system.
+
+Mirrors the pattern from your FAS project: every module imports paths,
+model names, and thresholds from here. Nothing hard-coded downstream.
+"""
 from __future__ import annotations
 
 import os
@@ -8,20 +14,32 @@ ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 INDEX_DIR = DATA_DIR / "chroma"          # persisted vector store lives here
 RAW_CORPUS = DATA_DIR / "medquad.csv"    # CSV with answers (see README data note)
-# Raw MedQuAD download. Point this at the GitHub .zip OR an extracted folder.
-# Default assumes you dropped the downloaded zip into data/.
-MEDQUAD_SRC = DATA_DIR / "MedQuAD-master.zip"
+
+# ---- MedQuAD raw download: set this once, here ----
+# Point it at the GitHub ZIP (no need to extract) or an extracted folder.
+#   Local:  DATA_DIR / "MedQuAD-master.zip"
+#   Colab:  Path("/content/drive/MyDrive/medquad/MedQuAD-master.zip")
+MEDQUAD_SRC = DATA_DIR 
+
 EVAL_DIR = ROOT / "eval"
 
 
 @dataclass(frozen=True)
 class Settings:
     # ---- retrieval / embedding ----
-    embed_model: str = "BAAI/bge-small-en-v1.5"   # 384-dim, CPU-friendly
+    embed_model: str = "BAAI/bge-small-en-v1.5"   # 384-dim, CPU-f  riendly
+    embed_dim: int = 384                           # must match embed_model
     collection_name: str = "medquad"
     top_k: int = 4                                 # passages retrieved per query
     chunk_chars: int = 1200                        # ~answers are long; chunk them
     chunk_overlap: int = 150
+
+    # ---- vector store backend ----
+    # "chroma" (local, reproducible — use for eval) | "pinecone" (hosted — use for demo)
+    vector_backend: str = field(default_factory=lambda: os.getenv("VECTOR_BACKEND", "chroma"))
+    pinecone_index: str = "medquad"
+    pinecone_cloud: str = "aws"
+    pinecone_region: str = "us-east-1"             # Starter tier is us-east-1 only
 
     # ---- generation ----
     # provider is read from env so you can swap without touching code.
