@@ -9,7 +9,7 @@ from config import settings
 
 class Embedder:
     def __init__(self, model_name: str | None = None) -> None:
-        from sentence_transformer import SentenceTransformer
+        from sentence_transformers import SentenceTransformer
         self.model = SentenceTransformer(model_name or settings.embed_model)
     
     def encode(self, texts: list[str]) -> list[list[float]]:

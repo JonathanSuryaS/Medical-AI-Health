@@ -10,6 +10,16 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+ROOT = Path(__file__).resolve().parent
+load_dotenv(ROOT / ".env")          # <-- must run BEFORE Settings() is constructed
+
+
+import os
+from dataclasses import dataclass, field
+from pathlib import Path
+
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 INDEX_DIR = DATA_DIR / "chroma"          # persisted vector store lives here
@@ -57,7 +67,7 @@ class Settings:
     pii_redaction_target: float = 0.95
 
     # abstention: if best retrieval score is below this, refuse + refer
-    min_retrieval_score: float = 0.30
+    min_retrieval_score: float = 0.70
 
 
 settings = Settings()
