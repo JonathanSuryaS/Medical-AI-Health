@@ -1,0 +1,41 @@
+question,status,faithfulness,relevancy,n_claims,n_supported,unsupported_claims,generated
+"What are the symptoms of Lipodystrophy, familial partial, type 2 ?",scored,0.933,1,15,14,The list may not be exhaustive according to the provided sources.,"According to the provided sources, the signs and symptoms of Lipodystrophy, familial partial, type 2 include:
+
+* Abnormality of lipid metabolism (90%) [1]
+* Diabetes mellitus (90%) [1]
+* Hepatomegaly (90%) [1]
+* Insulin resistance (90%) [1]
+* Lipoatrophy (90%) [1]
+* Multiple lipomas (90%) [1]
+* Round face (90%) [1]
+* Skeletal muscle hypertrophy (90%) [1]
+* Acute pancreatitis (75%) [1]
+* Abnormality of the nail (50%) [1]
+* Advanced eruption of teeth (50%) [1]
+* Secondary amenorrhea (50%) [1]
+* Thin skin (50%) [1]
+
+Note that these symptoms are based on the Human Phenotype Ontology and may not be an exhaustive list."
+What are the treatments for Acute respiratory distress syndrome ?,scored,1.000,1,9,9,,"According to the passages, the treatments for Acute Respiratory Distress Syndrome (ARDS) include:
+
+* Providing breathing support with a breathing machine that delivers high doses of oxygen and continued pressure called PEEP (positive end-expiratory pressure) to the damaged lungs ([1])
+* Using medications to treat infections, reduce inflammation, and remove fluid from the lungs ([1])
+* Temporarily paralyzing the person with ARDS with medications to increase the chance of recovery ([1])
+* Providing oxygen therapy through nasal prongs or a mask, or through a breathing tube if necessary ([4])
+
+Note that these treatments are typically provided in an intensive care unit (ICU) and continue until the patient is well enough to breathe on their own."
+What are the treatments for Legg-Calv-Perthes disease ?,parse_fail,,1,0,0,,"The sources do not provide information on specific treatments for Legg-Calv-Perthes disease. They mention that affected individuals often develop osteoarthritis in the hips at an early age [2], but they do not discuss treatment options for the condition itself.
+
+However, it is mentioned that bone remodeling is a normal process by which old bone is removed and new bone is created to replace it [2]. This process can recur multiple times. But this information does not imply any specific treatment for Legg-Calv-Perthes disease.
+
+It's recommended to consult qualified healthcare professionals or the resources listed in passage [1] (National Osteonecrosis Foundation, Seattle Children's Hospital) for more information on diagnosis and management of Legg-Calv-Perthes disease."
+How many people are affected by frontonasal dysplasia ?,parse_fail,,1,0,0,,"According to passage [1], at least 100 cases of frontonasal dysplasia have been reported in the scientific literature. Passage [2] states that it is a ""very rare disorder"", but does not provide an exact number of affected individuals. Passage [3] also refers to it as a ""rare condition"" without specifying a numerical value. However, passage [4] provides a list of signs and symptoms for frontonasal dysplasia, which suggests that the condition is relatively rare, but does not give a specific number of affected people.
+
+It's worth noting that passage [2] mentions that most cases occur randomly, for no apparent reason (sporadically), while some cases are thought to run in families. This implies that frontonasal dysplasia may be underdiagnosed or misdiagnosed, which could affect the reported number of affected individuals.
+
+Overall, based on the provided passages, it is difficult to determine an exact number of people affected by frontonasal dysplasia."
+How many people are affected by cranioectodermal dysplasia ?,scored,0.800,1,5,4,The information about cleidocranial dysplasia does not apply to cranioectodermal dysplasia.,"The prevalence of cranioectodermal dysplasia is unknown. However, approximately 40 cases have been described in the medical literature [1].
+
+It's also mentioned that cleidocranial dysplasia occurs in approximately 1 per million individuals worldwide [3], but this information does not apply to cranioectodermal dysplasia.
+
+Therefore, based on the provided passages, we cannot determine a specific number of people affected by cranioectodermal dysplasia."
