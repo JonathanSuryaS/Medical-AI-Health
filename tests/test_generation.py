@@ -15,7 +15,7 @@ import pytest
  
 from src.generation.generator import Answer, Generator
 from src.generation.prompts import REFUSAL_TEXT, build_user_prompt
-from src.generation.pipeline import Pipeline
+from pipeline import Pipeline
 from src.retrieval.stores import Passage
  
  
