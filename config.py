@@ -57,6 +57,9 @@ class Settings:
     llm_provider: str = field(default_factory=lambda: os.getenv("LLM_PROVIDER", "anthropic"))
     anthropic_model: str = "claude-haiku-4-5-20251001"
     gemini_model: str = "gemini-2.0-flash"
+    ollama_model: str = "llama3.1:8b"
+    ollama_host: str = field(default_factory=lambda: os.getenv("OLLAMA_HOST","http://localhost:11434"))
+    
     max_tokens: int = 700
     temperature: float = 0.0                        # grounding wants determinism
 
