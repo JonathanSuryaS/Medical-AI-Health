@@ -72,6 +72,9 @@ class Settings:
 
     # abstention: if best retrieval score is below this, refuse + refer
     min_retrieval_score: float = 0.70
+    
+    # PII redaction
+    pii_redaction: bool = field(default_factory=lambda: os.getenv("PII_REDACTION", "true") == "true")
 
 
 settings = Settings()
