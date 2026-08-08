@@ -39,7 +39,7 @@ import time
 from dataclasses import dataclass
 
 from config import RAW_CORPUS, settings
-from src.pipeline import Pipeline
+from backend.pipeline import Pipeline
 from eval.judge import FaithfulnessJudge, FaithfulnessResult
 
 

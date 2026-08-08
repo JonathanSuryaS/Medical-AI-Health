@@ -28,7 +28,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from config import settings
-from src.pipeline import Pipeline
+from backend.pipeline import Pipeline
 
 _pipeline: Pipeline | None = None
 

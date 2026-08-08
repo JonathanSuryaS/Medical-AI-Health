@@ -29,8 +29,8 @@ from dataclasses import dataclass, field
 from typing import Protocol
 
 from config import settings
-from src.generation.prompts import REFUSAL_TEXT, SYSTEM_PROMPT, build_user_prompt
-from src.retrieval.stores import Passage
+from backend.generation.prompts import REFUSAL_TEXT, SYSTEM_PROMPT, build_user_prompt
+from backend.retrieval.stores import Passage
 
 
 @dataclass

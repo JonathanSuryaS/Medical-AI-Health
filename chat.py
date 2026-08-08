@@ -17,7 +17,7 @@ Commands: /quit or /exit to leave, /k N to change how many passages are retrieve
 from __future__ import annotations
 
 from config import settings
-from src.pipeline import Pipeline
+from backend.pipeline import Pipeline
 
 
 def _print_answer(ans) -> None:
