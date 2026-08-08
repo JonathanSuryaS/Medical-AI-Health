@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 .env
 data/chroma/
+node_modules/
+dist/
+.env
+.env.local
+*.log
