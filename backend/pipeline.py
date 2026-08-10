@@ -23,8 +23,8 @@ than no safety feature, because you'd trust it.
 from __future__ import annotations
 
 from config import settings
-from src.generation.generator import Answer, Generator
-from src.retrieval.retriever import Retriever
+from backend.generation.generator import Answer, Generator
+from backend.retrieval.retriever import Retriever
 
 
 class Pipeline:
@@ -42,7 +42,7 @@ class Pipeline:
         self._redaction_broken = False
         if redactor is None and settings.pii_redaction:
             try:
-                from src.pii.redactor import Redactor
+                from backend.pii.redactor import Redactor
                 self.redactor = Redactor()
             except Exception as e:
                 self._redaction_broken = True

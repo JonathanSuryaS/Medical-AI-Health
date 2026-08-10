@@ -15,9 +15,9 @@ import argparse
 import time
 
 from config import RAW_CORPUS, settings
-from src.ingest.load_medquad import load_corpus
-from src.retrieval.embedder import Embedder
-from src.retrieval.stores import get_store
+from backend.ingest.load_medquad import load_corpus
+from backend.retrieval.embedder import Embedder
+from backend.retrieval.stores import get_store
 
 BATCH = 256  # embed + upsert in batches: keeps RAM flat and gives progress output
 

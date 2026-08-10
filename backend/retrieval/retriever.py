@@ -9,8 +9,8 @@ embedder so it can be unit-tested without downloading models or hitting Pinecone
 from __future__ import annotations
 
 from config import settings
-from src.retrieval.embedder import Embedder
-from src.retrieval.stores import Passage, VectorStore, get_store
+from backend.retrieval.embedder import Embedder
+from backend.retrieval.stores import Passage, VectorStore, get_store
 
 
 class Retriever:
