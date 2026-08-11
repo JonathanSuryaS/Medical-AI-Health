@@ -1,16 +1,10 @@
 """
-main.py -- HTTP layer over the pipeline, now with chat-history persistence.
+main.py -- HTTP layer. Now with auth (Phase 4) and per-user history (Phase 5).
 
-New in Phase 3:
-  - /ask saves each question+answer to the database after answering
-  - GET /history returns saved history
-  - a DB session is opened per request via the get_session dependency
-
-Still deliberately thin. The pipeline does the thinking; the repo does the storage;
-this file just wires request -> pipeline -> repo -> response.
-
-Phase 3 uses a placeholder user (id=1) because there's no login yet. The two lines
-marked PHASE-5 are the only ones that change when real auth arrives.
+The two PHASE-5 placeholder lines from before are gone: /ask and /history now
+depend on get_current_user, so they require a valid token and operate on the real
+logged-in user. Adding one dependency turned them from open+placeholder into
+login-only+per-user. That's the payoff of building the auth gate as a dependency.
 """
 
 from __future__ import annotations
@@ -26,6 +20,8 @@ from config import settings
 from backend.pipeline import Pipeline
 from backend.db import get_session
 from backend import history_repo
+from backend.models import User
+from backend.auth_routes import router as auth_router, get_current_user
 
 _pipeline: Pipeline | None = None
 
@@ -40,7 +36,7 @@ async def lifespan(app: FastAPI):
     print("[api] shutting down.")
 
 
-app = FastAPI(title="Medical AI Health Assistant", version="0.2.0", lifespan=lifespan)
+app = FastAPI(title="Medical AI Health Assistant", version="0.3.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -48,6 +44,9 @@ app.add_middleware(
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
+
+# mount the /auth/signup, /auth/login, /auth/me routes
+app.include_router(auth_router)
 
 
 # ---------------------------------------------------------------- schemas
@@ -85,7 +84,11 @@ def health() -> dict:
 
 
 @app.post("/ask", response_model=AskResponse)
-def ask(req: AskRequest, db: Session = Depends(get_session)) -> AskResponse:
+def ask(
+    req: AskRequest,
+    db: Session = Depends(get_session),
+    user: User = Depends(get_current_user),   # <- now requires login; gives us the user
+) -> AskResponse:
     if _pipeline is None:
         raise HTTPException(status_code=503, detail="pipeline still starting")
 
@@ -94,10 +97,8 @@ def ask(req: AskRequest, db: Session = Depends(get_session)) -> AskResponse:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"generation failed: {type(e).__name__}")
 
-    # --- Phase 3: persist the exchange ---
-    # PHASE-5: replace these two lines with the real logged-in user's id.
-    user_id = history_repo.ensure_placeholder_user(db)
-    history_repo.save_exchange(db, user_id, req.question, ans.text)
+    # Phase 5: saved against the REAL logged-in user, not a placeholder.
+    history_repo.save_exchange(db, user.id, req.question, ans.text)
 
     return AskResponse(
         answer=ans.text,
@@ -108,15 +109,14 @@ def ask(req: AskRequest, db: Session = Depends(get_session)) -> AskResponse:
 
 
 @app.get("/history", response_model=list[HistoryItem])
-def history(db: Session = Depends(get_session)) -> list[HistoryItem]:
-    # PHASE-5: replace with the real logged-in user's id.
-    user_id = history_repo.ensure_placeholder_user(db)
-    rows = history_repo.get_history(db, user_id)
+def history(
+    db: Session = Depends(get_session),
+    user: User = Depends(get_current_user),   # <- each user sees only their own
+) -> list[HistoryItem]:
+    rows = history_repo.get_history(db, user.id)
     return [
         HistoryItem(
-            id=r.id,
-            question=r.question,
-            answer=r.answer,
+            id=r.id, question=r.question, answer=r.answer,
             created_at=r.created_at.isoformat() if r.created_at else "",
         )
         for r in rows
