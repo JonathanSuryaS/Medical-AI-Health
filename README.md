@@ -5,8 +5,6 @@ answers **only** from a curated corpus of NIH/NLM medical articles, cites its
 sources inline, refuses when it has no grounded answer, and redacts personal
 information before it ever leaves the machine.
 
-Built for the INaAI 2026 AI Engineer track (NLP/LLM Agent domain).
-
 ---
 
 ## What it does
